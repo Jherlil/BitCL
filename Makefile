@@ -1,5 +1,5 @@
 
-CUR_DIR=$(shell pwd)
+CUR_DIR:=$(CURDIR)
 DIRS=util AddressUtil CmdParse CryptoUtil KeyFinderLib CLKeySearchDevice CudaKeySearchDevice cudaMath clUtil cudaUtil secp256k1lib Logger embedcl
 
 INCLUDE = $(foreach d, $(DIRS), -I$(CUR_DIR)/$d)

@@ -1,22 +1,24 @@
-NAME=CudaKeySearchDevice
-CPPSRC:=$(wildcard *.cpp)
-CUSRC:=$(wildcard *.cu)
+NAME = CudaKeySearchDevice
+CPPSRC := $(wildcard *.cpp)
+CUSRC := $(wildcard *.cu)
+CPP_OBJS := $(CPPSRC:.cpp=.o)
+CU_OBJS := $(CUSRC:.cu=.cu.o)
 
-all:	cuda
+all: $(LIBDIR)/lib$(NAME).a
 
-cuda:
-	for file in ${CPPSRC} ; do\
-		${CXX} -c $$file ${INCLUDE} -I${CUDA_INCLUDE} ${CXXFLAGS};\
-	done
+$(LIBDIR)/lib$(NAME).a: $(CPP_OBJS) $(CU_OBJS) cuda_libs.o
+	mkdir -p $(LIBDIR)
+	ar rvs $@ $^
 
-	for file in ${CUSRC} ; do\
-		${NVCC} -c $$file -o $$file".o" ${NVCCFLAGS} -rdc=true ${INCLUDE} -I${CUDA_INCLUDE} -I${CUDA_MATH};\
-	done
+cuda_libs.o: $(CU_OBJS)
+	$(NVCC) -dlink -o $@ $^ -lcudadevrt -lcudart
 
-	${NVCC} -dlink -o cuda_libs.o *.cu.o -lcudadevrt -lcudart
+%.o: %.cpp
+	$(CXX) -c $< $(INCLUDE) -I$(CUDA_INCLUDE) $(CXXFLAGS)
 
-	ar rvs ${LIBDIR}/lib$(NAME).a *.o
+%.cu.o: %.cu
+	$(NVCC) -c $< -o $@ $(NVCCFLAGS) -rdc=true $(INCLUDE) -I$(CUDA_INCLUDE) -I$(CUDA_MATH)
 
 clean:
-	rm -f *.o *.cu.o
+	rm -f *.o *.cu.o cuda_libs.o
 	rm -f *.a

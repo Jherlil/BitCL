@@ -1,15 +1,19 @@
-NAME=CLKeySearchDevice
-CPPSRC:=$(wildcard *.cpp)
+NAME = CLKeySearchDevice
+CPPSRC := $(wildcard *.cpp)
+OBJS := $(CPPSRC:.cpp=.o) bitcrack_cl.o
 
-all:
-	cat ../clMath/sha256.cl ../clMath/secp256k1.cl ../clMath/ripemd160.cl keysearch.cl > bitcrack.cl
-	${BINDIR}/embedcl bitcrack.cl bitcrack_cl.cpp _bitcrack_cl
+all: $(LIBDIR)/lib$(NAME).a
 
-	for file in ${CPPSRC} bitcrack_cl.cpp; do\
-		${CXX} -c $$file ${INCLUDE} -I${OPENCL_INCLUDE} ${CXXFLAGS};\
-	done
+bitcrack_cl.cpp: ../clMath/sha256.cl ../clMath/secp256k1.cl ../clMath/ripemd160.cl keysearch.cl
+	cat $^ > bitcrack.cl
+	$(BINDIR)/embedcl bitcrack.cl $@ _bitcrack_cl
 
-	ar rvs ${LIBDIR}/lib$(NAME).a *.o
+$(LIBDIR)/lib$(NAME).a: $(OBJS)
+	mkdir -p $(LIBDIR)
+	ar rvs $@ $^
+
+%.o: %.cpp
+	$(CXX) -c $< $(INCLUDE) -I$(OPENCL_INCLUDE) $(CXXFLAGS)
 
 clean:
 	rm -rf *.a *.o bitcrack.cl bitcrack_cl.cpp

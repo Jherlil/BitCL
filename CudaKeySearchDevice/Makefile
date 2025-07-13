@@ -7,7 +7,7 @@ CU_OBJS := $(CUSRC:.cu=.cu.o)
 all: $(LIBDIR)/lib$(NAME).a
 
 $(LIBDIR)/lib$(NAME).a: $(CPP_OBJS) $(CU_OBJS) cuda_libs.o
-	mkdir -p $(LIBDIR)
+       -mkdir $(LIBDIR)
 	ar rvs $@ $^
 
 cuda_libs.o: $(CU_OBJS)

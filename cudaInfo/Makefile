@@ -2,7 +2,7 @@ CPPSRC:=$(wildcard *.cpp)
 
 all:
 	    ${CXX} -o cudainfo${EXE_EXT} ${CPPSRC} ${INCLUDE} -I${CUDA_INCLUDE} ${CXXFLAGS} ${LIBS} -L${CUDA_LIB} -lcudautil -lcudart
-	    mkdir -p $(BINDIR)
+       -mkdir $(BINDIR)
 	    cp cudainfo${EXE_EXT} $(BINDIR)/cudainfo${EXE_EXT}
 
 clean:

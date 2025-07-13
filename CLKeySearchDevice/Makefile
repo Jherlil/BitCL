@@ -9,7 +9,7 @@ bitcrack_cl.cpp: ../clMath/sha256.cl ../clMath/secp256k1.cl ../clMath/ripemd160.
 	$(BINDIR)/embedcl bitcrack.cl $@ _bitcrack_cl
 
 $(LIBDIR)/lib$(NAME).a: $(OBJS)
-       -mkdir $(LIBDIR)
+	-mkdir $(LIBDIR)
 	ar rvs $@ $^
 
 %.o: %.cpp

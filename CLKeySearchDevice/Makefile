@@ -16,4 +16,4 @@ $(LIBDIR)/lib$(NAME).a: $(OBJS)
 	$(CXX) -c $< $(INCLUDE) -I$(OPENCL_INCLUDE) $(CXXFLAGS)
 
 clean:
-	rm -rf *.a *.o bitcrack.cl bitcrack_cl.cpp
+       rm -rf *.a *.o bitcrack_cl.cpp

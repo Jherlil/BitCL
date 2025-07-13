@@ -4,7 +4,7 @@
 #include "CryptoUtil.h"
 
 #ifdef _WIN32
-#include<Windows.h>
+#include <windows.h>
 #include <bcrypt.h>
 
 static void secureRandom(unsigned char *buf, unsigned int count)

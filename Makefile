@@ -9,8 +9,19 @@ BINDIR=$(CUR_DIR)/bin
 LIBS+=-L$(LIBDIR)
 
 # C++ options
+EXE_EXT ?=
 CXX=g++
 CXXFLAGS=-O2 -std=c++11
+BUILD_OPENCL ?= 1
+BUILD_CUDA ?= 0
+
+ifeq ($(MINGW),1)
+EXE_EXT=.exe
+CXX=x86_64-w64-mingw32-g++
+NVCC=nvcc -ccbin $(CXX)
+CXXFLAGS+=-static
+LIBS+=-static-libstdc++ -static-libgcc
+endif
 
 # CUDA variables
 COMPUTE_CAP=30
@@ -34,6 +45,7 @@ export NVCCFLAGS
 export LIBS
 export CXX
 export CXXFLAGS
+export EXE_EXT
 export CUDA_LIB
 export CUDA_INCLUDE
 export CUDA_MATH

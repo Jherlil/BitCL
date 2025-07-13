@@ -52,6 +52,10 @@ std::vector<cl::CLDeviceInfo> cl::getDevices()
 
             info.cores = cores;
 
+            size_t maxWG = 0;
+            clCall(clGetDeviceInfo(devices[j], CL_DEVICE_MAX_WORK_GROUP_SIZE, sizeof(maxWG), &maxWG, NULL));
+            info.maxWorkGroupSize = maxWG;
+
             cl_ulong mem;
             clCall(clGetDeviceInfo(devices[j], CL_DEVICE_GLOBAL_MEM_SIZE, sizeof(mem), &mem, NULL));
 

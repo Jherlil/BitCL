@@ -23,9 +23,10 @@ cuda::CudaDeviceInfo cuda::getDeviceInfo(int device)
 	devInfo.id = device;
 	devInfo.major = properties.major;
 	devInfo.minor = properties.minor;
-	devInfo.mpCount = properties.multiProcessorCount;
-	devInfo.mem = properties.totalGlobalMem;
-	devInfo.name = std::string(properties.name);
+        devInfo.mpCount = properties.multiProcessorCount;
+        devInfo.maxThreadsPerBlock = properties.maxThreadsPerBlock;
+        devInfo.mem = properties.totalGlobalMem;
+        devInfo.name = std::string(properties.name);
 
 	int cores = 0;
 	switch(devInfo.major) {

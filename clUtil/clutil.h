@@ -18,6 +18,7 @@ namespace cl {
         cl_device_id id;
         int cores;
         uint64_t mem;
+        size_t maxWorkGroupSize;
         std::string name;
 
     }CLDeviceInfo;

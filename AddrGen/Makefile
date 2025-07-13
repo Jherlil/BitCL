@@ -1,10 +1,9 @@
-CPPSRC:=$(wildcard *.cpp)
+CPPSRC := $(wildcard *.cpp)
 
 all:
-    ${CXX} -o addrgen${EXE_EXT} ${CPPSRC} ${INCLUDE} -I${CUDA_INCLUDE} ${CXXFLAGS} ${LIBS} -laddressutil -lsecp256k1 -lcryptoutil -lsecp256k1 -lutil -lcmdparse
-    mkdir -p $(BINDIR)
-    cp addrgen${EXE_EXT} $(BINDIR)/addrgen${EXE_EXT}
-
+	$(CXX) -o addrgen$(EXE_EXT) $(CPPSRC) $(INCLUDE) -I$(CUDA_INCLUDE) $(CXXFLAGS) $(LIBS) -laddressutil -lsecp256k1 -lcryptoutil -lsecp256k1 -lutil -lcmdparse
+	mkdir -p $(BINDIR)
+	cp addrgen$(EXE_EXT) $(BINDIR)/addrgen$(EXE_EXT)
 
 clean:
-    rm -rf addrgen${EXE_EXT}
+	rm -rf addrgen$(EXE_EXT)

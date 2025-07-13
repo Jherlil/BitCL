@@ -11,17 +11,19 @@ LIBS+=-L$(LIBDIR)
 # C++ options
 EXE_EXT ?=
 CXX=g++
-CXXFLAGS=-O2 -std=c++11
-BUILD_OPENCL ?= 1
-BUILD_CUDA ?= 0
-
+CXXFLAGS=-O3 -std=c++11
 ifeq ($(MINGW),1)
 EXE_EXT=.exe
 CXX=x86_64-w64-mingw32-g++
 NVCC=nvcc -ccbin $(CXX)
 CXXFLAGS+=-static
 LIBS+=-static-libstdc++ -static-libgcc
+else
+CXXFLAGS+=-march=native
 endif
+BUILD_OPENCL ?= 1
+BUILD_CUDA ?= 0
+
 
 # CUDA variables
 COMPUTE_CAP=30

@@ -70,25 +70,25 @@ endif
 all:	${TARGETS}
 
 dir_cudaKeySearchDevice: dir_keyfinderlib dir_cudautil dir_logger
-	make --directory CudaKeySearchDevice
+	mingw32-make --directory CudaKeySearchDevice
 
 dir_clKeySearchDevice: dir_embedcl dir_keyfinderlib dir_clutil dir_logger
-	make --directory CLKeySearchDevice
+	mingw32-make --directory CLKeySearchDevice
 
 dir_embedcl:
-	make --directory embedcl
+	mingw32-make --directory embedcl
 
 dir_addressutil:	dir_util dir_secp256k1lib dir_cryptoutil
-	make --directory AddressUtil
+	mingw32-make --directory AddressUtil
 
 dir_cmdparse:
-	make --directory CmdParse
+	mingw32-make --directory CmdParse
 
 dir_cryptoutil:
-	make --directory CryptoUtil
+	mingw32-make --directory CryptoUtil
 
 dir_keyfinderlib:	dir_util dir_secp256k1lib dir_cryptoutil dir_addressutil dir_logger
-	make --directory KeyFinderLib
+	mingw32-make --directory KeyFinderLib
 
 KEYFINDER_DEPS=dir_keyfinderlib
 
@@ -101,46 +101,46 @@ ifeq ($(BUILD_OPENCL),1)
 endif
 
 dir_keyfinder:	$(KEYFINDER_DEPS)
-	make --directory KeyFinder
+	mingw32-make --directory KeyFinder
 
 dir_cudautil:
-	make --directory cudaUtil
+	mingw32-make --directory cudaUtil
 
 dir_clutil:
-	make --directory clUtil
+	mingw32-make --directory clUtil
 
 dir_secp256k1lib:	dir_cryptoutil
-	make --directory secp256k1lib
+	mingw32-make --directory secp256k1lib
 
 dir_util:
-	make --directory util
+	mingw32-make --directory util
 
 dir_cudainfo:
-	make --directory cudaInfo
+	mingw32-make --directory cudaInfo
 
 dir_logger:
-	make --directory Logger
+	mingw32-make --directory Logger
 
 dir_addrgen:	dir_cmdparse dir_addressutil dir_secp256k1lib
-	make --directory AddrGen
+	mingw32-make --directory AddrGen
 dir_clunittest:	dir_clutil
-	make --directory CLUnitTests
+	mingw32-make --directory CLUnitTests
 
 clean:
-	make --directory AddressUtil clean
-	make --directory CmdParse clean
-	make --directory CryptoUtil clean
-	make --directory KeyFinderLib clean
-	make --directory KeyFinder clean
-	make --directory cudaUtil clean
-	make --directory secp256k1lib clean
-	make --directory util clean
-	make --directory cudaInfo clean
-	make --directory Logger clean
-	make --directory clUtil clean
-	make --directory CLKeySearchDevice clean
-	make --directory CudaKeySearchDevice clean
-	make --directory embedcl clean
-	make --directory CLUnitTests clean
+	mingw32-make --directory AddressUtil clean
+	mingw32-make --directory CmdParse clean
+	mingw32-make --directory CryptoUtil clean
+	mingw32-make --directory KeyFinderLib clean
+	mingw32-make --directory KeyFinder clean
+	mingw32-make --directory cudaUtil clean
+	mingw32-make --directory secp256k1lib clean
+	mingw32-make --directory util clean
+	mingw32-make --directory cudaInfo clean
+	mingw32-make --directory Logger clean
+	mingw32-make --directory clUtil clean
+	mingw32-make --directory CLKeySearchDevice clean
+	mingw32-make --directory CudaKeySearchDevice clean
+	mingw32-make --directory embedcl clean
+	mingw32-make --directory CLUnitTests clean
 	rm -rf ${LIBDIR}
 	rm -rf ${BINDIR}

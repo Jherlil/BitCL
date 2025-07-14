@@ -1,10 +1,10 @@
-CPPSRC:=$(wildcard *.cpp)
-NAME=embedcl
+CPPSRC := $(wildcard *.cpp)
+NAME = embedcl
 
 all:
-	${CXX} -o ${NAME} ${CPPSRC} ${INCLUDE} ${CXXFLAGS}
-	mkdir -p $(BINDIR)
-	cp ${NAME} $(BINDIR)/${NAME}
+	$(CXX) -o $(NAME)$(EXE_EXT) $(CPPSRC) $(INCLUDE) $(CXXFLAGS)
+	-mkdir $(BINDIR)
+	cp $(NAME)$(EXE_EXT) $(BINDIR)/$(NAME)$(EXE_EXT)
 
 clean:
-	rm -rf ${NAME}
+	rm -rf $(NAME)$(EXE_EXT)

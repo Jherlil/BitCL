@@ -1,13 +1,15 @@
-NAME=util
-SRC=$(wildcard *.cpp)
-OBJS=$(SRC:.cpp=.o)
+NAME = util
+SRC  := $(wildcard *.cpp)
+OBJS := $(SRC:.cpp=.o)
 
-all:    ${SRC}
-	for file in ${SRC} ; do\
-		${CXX} -c $$file ${INCLUDE} ${CXXFLAGS};\
-	done
-	mkdir -p ${LIBDIR}
-	ar rvs ${LIBDIR}/lib$(NAME).a ${OBJS}
+all: $(LIBDIR)/lib$(NAME).a
+
+$(LIBDIR)/lib$(NAME).a: $(OBJS)
+	-mkdir $(LIBDIR)
+	ar rvs $@ $^
+
+%.o: %.cpp
+	$(CXX) -c $< $(INCLUDE) $(CXXFLAGS)
 
 clean:
 	rm -rf *.o

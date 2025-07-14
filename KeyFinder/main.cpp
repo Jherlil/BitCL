@@ -229,12 +229,16 @@ typedef struct {
 
 DeviceParameters getDefaultParameters(const DeviceManager::DeviceInfo &device)
 {
-	DeviceParameters p;
-	p.threads = 256;
-    p.blocks = 32;
-	p.pointsPerThread = 32;
+    DeviceParameters p;
+    p.pointsPerThread = 32;
 
-	return p;
+    // Use as many compute units as available
+    p.blocks = device.computeUnits;
+
+    // Use device's max supported threads per block
+    p.threads = device.maxThreadsPerBlock;
+
+    return p;
 }
 
 static KeySearchDevice *getDeviceContext(DeviceManager::DeviceInfo &device, int blocks, int threads, int pointsPerThread)
@@ -261,6 +265,7 @@ static void printDeviceList(const std::vector<DeviceManager::DeviceInfo> &device
         printf("Name:   %s\n", devices[i].name.c_str());
         printf("Memory: %lldMB\n", devices[i].memory / ((uint64_t)1024 * 1024));
         printf("Compute units: %d\n", devices[i].computeUnits);
+        printf("Max threads per block: %d\n", devices[i].maxThreadsPerBlock);
         printf("\n");
     }
 }

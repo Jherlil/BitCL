@@ -36,6 +36,7 @@ typedef struct {
     std::string name;
     uint64_t memory;
     int computeUnits;
+    int maxThreadsPerBlock;
 
     // CUDA device info
     int cudaMajor;

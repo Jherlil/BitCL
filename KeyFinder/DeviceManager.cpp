@@ -27,6 +27,7 @@ std::vector<DeviceManager::DeviceInfo> DeviceManager::getDevices()
             device.physicalId = cudaDevices[i].id;
             device.memory = cudaDevices[i].mem;
             device.computeUnits = cudaDevices[i].mpCount;
+            device.maxThreadsPerBlock = cudaDevices[i].maxThreadsPerBlock;
             devices.push_back(device);
 
             deviceId++;
@@ -49,6 +50,7 @@ std::vector<DeviceManager::DeviceInfo> DeviceManager::getDevices()
             device.physicalId = (uint64_t)clDevices[i].id;
             device.memory = clDevices[i].mem;
             device.computeUnits = clDevices[i].cores;
+            device.maxThreadsPerBlock = (int)clDevices[i].maxWorkGroupSize;
             devices.push_back(device);
             deviceId++;
         }

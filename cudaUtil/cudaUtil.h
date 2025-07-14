@@ -13,10 +13,11 @@ namespace cuda {
 		int id;
 		int major;
 		int minor;
-		int mpCount;
-		int cores;
-		uint64_t mem;
-		std::string name;
+                int mpCount;
+                int cores;
+                int maxThreadsPerBlock;
+                uint64_t mem;
+                std::string name;
 
 	}CudaDeviceInfo;
 

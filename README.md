@@ -148,6 +148,8 @@ Build the `clKeyFinder` project for an OpenCL build.
 
 Build the `cuKeyFinder` project for a CUDA build.
 
+If you prefer a command line build on Windows, install MinGW and run `mingw32-make` from a shell. Each library directory like `util`, `AddressUtil`, and `KeyFinderLib` contains its own Makefile. Generated folders such as `.vs`, `Debug`, `Release` and `x64` do not require Makefiles.
+
 Note: By default the NVIDIA OpenCL headers are used. You can set the header and library path for
 OpenCL in the `BitCrack.props` property sheet.
 

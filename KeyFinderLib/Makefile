@@ -1,14 +1,15 @@
-NAME=keyfinder
-CPPSRC:=$(wildcard *.cpp)
+NAME = keyfinder
+CPPSRC := $(wildcard *.cpp)
+OBJS := $(CPPSRC:.cpp=.o)
 
-all:	cuda
+all: $(LIBDIR)/lib$(NAME).a
 
-cuda:
-	for file in ${CPPSRC} ; do\
-		${CXX} -c $$file ${INCLUDE} -I${CUDA_INCLUDE} ${CXXFLAGS};\
-	done
+$(LIBDIR)/lib$(NAME).a: $(OBJS)
+	-mkdir $(LIBDIR)
+	ar rvs $@ $^
 
-	ar rvs ${LIBDIR}/lib$(NAME).a *.o
+%.o: %.cpp
+	$(CXX) -c $< $(INCLUDE) -I$(CUDA_INCLUDE) $(CXXFLAGS)
 
 clean:
 	rm -f *.o *.cu.o

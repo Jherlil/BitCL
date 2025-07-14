@@ -4,6 +4,7 @@
 #include<vector>
 #include<set>
 #include<algorithm>
+#include<inttypes.h>
 
 #include"util.h"
 
@@ -53,13 +54,9 @@ namespace util {
 #endif
     }
 
-	std::string formatThousands(uint64_t x)
-	{
-		char buf[32] = "";
-
-		sprintf(buf, "%lld", x);
-
-		std::string s(buf);
+        std::string formatThousands(uint64_t x)
+        {
+                std::string s = std::to_string(x);
 
 		int len = (int)s.length();
 
@@ -90,33 +87,26 @@ namespace util {
 		return (uint32_t)parseUInt64(s);
 	}
 
-	uint64_t parseUInt64(std::string s)
-	{
-		uint64_t val = 0;
-		bool isHex = false;
+        uint64_t parseUInt64(std::string s)
+        {
+                bool isHex = false;
 
-		if(s[0] == '0' && s[1] == 'x') {
-			isHex = true;
-			s = s.substr(2);
-		}
-		
-		if(s[s.length() - 1] == 'h') {
-			isHex = true;
-			s = s.substr(0, s.length() - 1);
-		}
+                if(s.size() > 1 && s[0] == '0' && s[1] == 'x') {
+                        isHex = true;
+                        s = s.substr(2);
+                }
 
-		if(isHex) {
-			if(sscanf(s.c_str(), "%llx", &val) != 1) {
-				throw std::string("Expected an integer");
-			}
-		} else {
-			if(sscanf(s.c_str(), "%lld", &val) != 1) {
-				throw std::string("Expected an integer");
-			}
-		}
+                if(!s.empty() && s.back() == 'h') {
+                        isHex = true;
+                        s.pop_back();
+                }
 
-		return val;
-	}
+                try {
+                        return std::stoull(s, nullptr, isHex ? 16 : 10);
+                } catch(const std::exception &) {
+                        throw std::string("Expected an integer");
+                }
+        }
 
 	bool isHex(const std::string &s)
 	{
@@ -226,32 +216,20 @@ namespace util {
 		return std::string(buf);
 	}
 
-	std::string format(uint32_t value)
-	{
-		char buf[100] = { 0 };
-
-		sprintf(buf, "%u", value);
-
-		return std::string(buf);
-	}
+        std::string format(uint32_t value)
+        {
+                return std::to_string(value);
+        }
 
     std::string format(uint64_t value)
-	{
-		char buf[100] = { 0 };
+        {
+                return std::to_string(value);
+        }
 
-		sprintf(buf, "%lld", (uint64_t)value);
-
-		return std::string(buf);
-	}
-
-	std::string format(int value)
-	{
-		char buf[100] = { 0 };
-
-		sprintf(buf, "%d", value);
-
-		return std::string(buf);
-	}
+        std::string format(int value)
+        {
+                return std::to_string(value);
+        }
 
 	void removeNewline(std::string &s)
 	{

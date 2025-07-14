@@ -8,14 +8,14 @@
 #include "Logger.h"
 
 
-void KeyFinder::defaultResultCallback(KeySearchResult result)
+void KeyFinder::defaultResultCallback(KeySearchResult /*result*/)
 {
-	// Do nothing
+        // Do nothing
 }
 
-void KeyFinder::defaultStatusCallback(KeySearchStatus status)
+void KeyFinder::defaultStatusCallback(KeySearchStatus /*status*/)
 {
-	// Do nothing
+        // Do nothing
 }
 
 KeyFinder::KeyFinder(const secp256k1::uint256 &startKey, const secp256k1::uint256 &endKey, int compression, KeySearchDevice* device, const secp256k1::uint256 &stride)
